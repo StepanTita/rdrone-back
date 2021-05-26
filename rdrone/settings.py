@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-73+aw+&5ry)mdvm^9&#ii-kb&9g_o+e$lqx6pmrurnl(se_pc(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'authentication',
 ]
 
 MIDDLEWARE = [
@@ -77,7 +78,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'rdrone',
         'USER': 'postgres',
-        'PASSWORD': 'postgres',
+        'PASSWORD': 'test',
         'HOST': 'localhost',
         'PORT': '6060',
     }
@@ -100,6 +101,10 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+# Auth
+
+AUTH_USER_MODEL = 'authentication.CustomUser'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
