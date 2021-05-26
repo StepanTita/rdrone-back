@@ -1,0 +1,6 @@
+asgiref @ file:///tmp/build/80754af9/asgiref_1617740417847/work
+certifi==2020.12.5
+Django @ file:///tmp/build/80754af9/django_1620913015185/work
+psycopg2 @ file:///tmp/build/80754af9/psycopg2_1612298595717/work
+pytz @ file:///tmp/build/80754af9/pytz_1612215392582/work
+sqlparse @ file:///tmp/build/80754af9/sqlparse_1602184451250/work
