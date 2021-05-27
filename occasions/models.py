@@ -13,8 +13,8 @@ class Occasion(models.Model):
     description = models.TextField()
     severity = models.IntegerField()
     status = models.CharField(max_length=100, default='')
-    resolved = models.IntegerField()
-    rejected = models.IntegerField()
+    resolved = models.IntegerField(default=0, blank=True)
+    rejected = models.IntegerField(default=0, blank=True)
 
 
 class Comment(models.Model):

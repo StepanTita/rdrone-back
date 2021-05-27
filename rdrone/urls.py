@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('auth/', include('authentication.urls', namespace='authentication')),
-    path('occasions/', include('occasions.urls', namespace='occasions')),
+    path('rdrone/admin/', admin.site.urls),
+    path('rdrone/auth/', include('authentication.urls', namespace='authentication')),
+    path('rdrone/occasions/', include('occasions.urls', namespace='occasions')),
 ]
