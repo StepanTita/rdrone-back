@@ -33,8 +33,8 @@ class CustomUserManager(BaseUserManager):
         )
         user.first_name = first_name
         user.last_name = last_name
-        user.username = extra_fields['username']
-        user.avatar = extra_fields['avatar']
+        user.username = extra_fields.get('username', '')
+        user.avatar = extra_fields.get('avatar', '')
         user.set_password(password)  # change password to hash
         user.is_admin = False
         user.is_staff = True
@@ -83,4 +83,4 @@ class CustomUser(AbstractBaseUser):
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
-        print(Token.objects.create(user=instance))
+        Token.objects.create(user=instance)
