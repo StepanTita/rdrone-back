@@ -1,20 +1,24 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.conf import settings
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from rest_framework.authtoken.models import Token
 
 from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
 
 
 class CustomUserManager(BaseUserManager):
-    def create_user(self, email, first_name, last_name, password=None):
-        return self._create(email, first_name, last_name, password)
+    def create_user(self, email, first_name, last_name, password=None, **extra_fields):
+        return self._create(email, first_name, last_name, password, **extra_fields)
 
-    def create_superuser(self, email, first_name, last_name, password=None):
-        return self._create(email, first_name, last_name, password)
+    def create_superuser(self, email, first_name, last_name, password=None, **extra_fields):
+        return self._create(email, first_name, last_name, password, **extra_fields)
 
-    def create_staffuser(self, email, first_name, last_name, password=None):
-        return self._create(email, first_name, last_name, password)
+    def create_staffuser(self, email, first_name, last_name, password=None, **extra_fields):
+        return self._create(email, first_name, last_name, password, **extra_fields)
 
-    def _create(self, email, first_name, last_name, password=None):
+    def _create(self, email, first_name, last_name, password=None, **extra_fields):
         if not email:
             raise ValueError("User must have an email")
         if not password:
@@ -29,6 +33,8 @@ class CustomUserManager(BaseUserManager):
         )
         user.first_name = first_name
         user.last_name = last_name
+        user.username = extra_fields['username']
+        user.avatar = extra_fields['avatar']
         user.set_password(password)  # change password to hash
         user.is_admin = False
         user.is_staff = True
@@ -51,10 +57,10 @@ class CustomUser(AbstractBaseUser):
     is_admin = models.BooleanField(default=False)
 
     username = models.CharField(_('username'), max_length=100)
-    avatar = models.FilePathField(_('user avatar'))
+    avatar = models.TextField(_('user avatar'), default='')
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name']
+    REQUIRED_FIELDS = ['first_name', 'last_name']
 
     objects = CustomUserManager()
 
@@ -72,3 +78,9 @@ class CustomUser(AbstractBaseUser):
 
     def __str__(self):
         return "{}".format(self.email)
+
+
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def create_auth_token(sender, instance=None, created=False, **kwargs):
+    if created:
+        print(Token.objects.create(user=instance))
