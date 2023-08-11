@@ -2,6 +2,7 @@
 
 ## Demo
 
+https://github.com/StepanTita/rdrone-back/assets/44279105/5c9cbc08-91ac-4d48-a601-0a394a999906
 
 This project presents a sophisticated software system built with the goal of ensuring and monitoring the quality of road surfaces in cities. Leveraging cutting-edge technologies such as Convolutionary Neural Networks and Image Recognition, this system aims to serve as an indispensable tool for contractors, drivers, and pedestrians alike.
 
